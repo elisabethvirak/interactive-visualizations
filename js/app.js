@@ -31,15 +31,15 @@ function buildPlot(sample) {
         var metadata = data.metadata[sample-940];
         // console.log(metadata);
         // save OTU IDs as a variable
-        var otuIDs = data.samples[sample-940].otu_ids;
-        console.log(otuIDs);
+        var otuIDs = data.samples[sample-940].otu_ids.slice(0,10);
+        // console.log(otuIDs);
         // save sample values as a variable
-        var sampleValues = data.samples[sample-940].sample_values;
+        var sampleValues = data.samples[sample-940].sample_values.slice(0,10);
         console.log(sampleValues);
         // save OTU labels as a variable
-        var otuLabels = data.samples[sample-940].otu_labels;
+        var otuLabels = data.samples[sample-940].otu_labels.slice(0,10);
         console.log(otuLabels);
-
+        
     });
 }
 
