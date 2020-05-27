@@ -32,14 +32,33 @@ function buildPlot(sample) {
         // console.log(metadata);
         // save OTU IDs as a variable
         var otuIDs = data.samples[sample-940].otu_ids.slice(0,10);
-        // console.log(otuIDs);
+        var otuIDstring = otuIDs.map(id => `OTU ${id}`);
+        console.log(otuIDstring);
         // save sample values as a variable
         var sampleValues = data.samples[sample-940].sample_values.slice(0,10);
-        console.log(sampleValues);
+        // console.log(sampleValues);
         // save OTU labels as a variable
         var otuLabels = data.samples[sample-940].otu_labels.slice(0,10);
-        console.log(otuLabels);
+        // console.log(otuLabels);
         
+        //create trace for bar plot
+        var trace1 = {
+            type: 'bar',
+            x: sampleValues.reverse(),
+            y: otuIDstring.reverse(),
+            orientation: 'h',
+            text: otuLabels.reverse()
+        };
+
+        var data = [trace1];
+
+        // var layout = {
+        //     yaxis: {
+        //         range:
+        //     }
+        // }
+        
+        Plotly.newPlot('bar', data);
     });
 }
 
