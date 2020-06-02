@@ -43,6 +43,7 @@ function buildPlot(sample) {
         
         //build metadata table
         var panel = d3.select('#sample-metadata');
+        panel.html("")
         //add row for each key:value pair
         Object.entries(metadata).forEach(([key, value]) => {
             panel.append('p').text(`${key}: ${value}`);
@@ -56,10 +57,33 @@ function buildPlot(sample) {
             orientation: 'h',
             text: otuLabels.reverse()
         };
+        var layoutBar = {
+            title: 'Top 10 OTUs',
+            xaxis: {
+                title: 'Sample Values'
+            },
+            yaxis: {
+                title: 'OTU IDs'
+            },
+        }
 
-        var data = [trace1];
+        var trace2 = {
+            x: otuIDstring,
+            y: sampleValues,
+            text: otuLabels,
+            mode: 'markers',
+            marker: {
+                size: sampleValues,
+                color: otuIDstring,
+                colorscale: 'spectral'
+            }
+        }
+
+        var dataBar = [trace1];
+        var dataBubble = [trace2];
         
-        Plotly.newPlot('bar', data);
+        Plotly.newPlot('bar', dataBar, layoutBar);
+        Plotly.newPlot('bubble', dataBubble);
     });
 }
 
