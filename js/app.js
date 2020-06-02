@@ -57,6 +57,7 @@ function buildPlot(sample) {
             orientation: 'h',
             text: otuLabels.reverse()
         };
+        //create layout for bar plot
         var layoutBar = {
             title: 'Top 10 OTUs',
             xaxis: {
@@ -67,15 +68,26 @@ function buildPlot(sample) {
             },
         }
 
+        //create trace for bubble plot
         var trace2 = {
-            x: otuIDstring,
+            x: otuIDs,
             y: sampleValues,
             text: otuLabels,
             mode: 'markers',
             marker: {
                 size: sampleValues,
-                color: otuIDstring,
+                color: otuIDs,
                 colorscale: 'spectral'
+            }
+        }
+        //create layout for bubble plot
+        var layoutBubble = {
+            title: "Bacteria Count per OTU",
+            xaxis: {
+                title: "OTU IDs"
+            },
+            yaxis: {
+                title: "Bacteria Count"
             }
         }
 
@@ -83,7 +95,7 @@ function buildPlot(sample) {
         var dataBubble = [trace2];
         
         Plotly.newPlot('bar', dataBar, layoutBar);
-        Plotly.newPlot('bubble', dataBubble);
+        Plotly.newPlot('bubble', dataBubble, layoutBubble);
     });
 }
 
