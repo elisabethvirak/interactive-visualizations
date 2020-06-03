@@ -97,6 +97,13 @@ function buildPlot(sample) {
         Plotly.newPlot('bar', dataBar, layoutBar);
         Plotly.newPlot('bubble', dataBubble, layoutBubble);
     });
-}
+};
+
+// function dropdownSelect(newID) {
+//     const dataFile = "samples.json";
+//     d3.json(dataFile).then(data => {
+        
+//     buildPlot(newID);
+// }
 
 init();
