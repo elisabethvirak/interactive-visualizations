@@ -8,7 +8,7 @@ function init () {
 
         // save subject ids as variable
         var subjectIDs = data.names;
-        // console.log(subjectIDs);
+        // console.log(typeof(subjectIDs));
 
         // select dropdown menu
         var dropdownMenu = d3.select('#selDataset');
@@ -16,36 +16,41 @@ function init () {
         subjectIDs.forEach(i => {
             // console.log(i);
             var menuOption = dropdownMenu.append('option');
-            menuOption.text(i).property('value');
+            menuOption.text(i).property('value', i);
         });
         buildPlot(subjectIDs[0]);
     });
 }
 
 function buildPlot(sample) {
+    // console.log(sample);
     //read in data file
     const dataFile = "samples.json";
     d3.json(dataFile).then(data => {
-        // console.log(sample);
-        // save metadata to be used in demographic info
-        var metadata = data.metadata[sample-940];
-        console.log(metadata);
+        // console.log(data);
+
+        var filteredData = data.samples.filter(d => d.id == sample);
+        // console.log(filteredData[0].otu_ids);
+
+        var filteredMeta = data.metadata.filter(d => d.id == sample);
+        // console.log(filteredMeta);
+
         // save OTU IDs as a variable
-        var otuIDs = data.samples[sample-940].otu_ids.slice(0,10);
+        var otuIDs = filteredData[0].otu_ids.slice(0,10);
         var otuIDstring = otuIDs.map(id => `OTU ${id}`);
         // console.log(otuIDstring);
         // save sample values as a variable
-        var sampleValues = data.samples[sample-940].sample_values.slice(0,10);
+        var sampleValues = filteredData[0].sample_values.slice(0,10);
         // console.log(sampleValues);
         // save OTU labels as a variable
-        var otuLabels = data.samples[sample-940].otu_labels.slice(0,10);
+        var otuLabels = filteredData[0].otu_labels.slice(0,10);
         // console.log(otuLabels);
         
         //build metadata table
         var panel = d3.select('#sample-metadata');
         panel.html("")
         //add row for each key:value pair
-        Object.entries(metadata).forEach(([key, value]) => {
+        Object.entries(filteredMeta[0]).forEach(([key, value]) => {
             panel.append('p').text(`${key}: ${value}`);
         });
 
@@ -99,11 +104,8 @@ function buildPlot(sample) {
     });
 };
 
-// function dropdownSelect(newID) {
-//     const dataFile = "samples.json";
-//     d3.json(dataFile).then(data => {
-        
-//     buildPlot(newID);
-// }
+function optionChanged(newID) {
+    buildPlot(newID);
+}
 
 init();
