@@ -1,7 +1,7 @@
 // Initial function to set up page
 function init () {
     //read in data file
-    const dataFile = "samples.json";
+    const dataFile = "js/samples.json";
     d3.json(dataFile).then(data => {
         // sanity check
         // console.log(data);
@@ -25,7 +25,7 @@ function init () {
 function buildPlot(sample) {
     // console.log(sample);
     //read in data file
-    const dataFile = "samples.json";
+    const dataFile = "js/samples.json";
     d3.json(dataFile).then(data => {
         // console.log(data);
 
